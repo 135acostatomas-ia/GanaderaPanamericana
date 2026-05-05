@@ -1,3 +1,4 @@
+// ─── CATALOG DATA ───────────────────────────────────────────────────────────
 const catalog = [
   // VACUNO
   { name: 'Asado', price: 17999, cat: 'vacuno' },
@@ -95,29 +96,147 @@ const catalog = [
 ];
 
 const catLabels = {
-  vacuno: 'Vacuno',
-  cerdo: 'Cerdo',
-  pollo: 'Pollo',
-  achuras: 'Achuras',
-  embutidos: 'Embutidos',
+  vacuno: 'Vacuno', cerdo: 'Cerdo', pollo: 'Pollo',
+  achuras: 'Achuras', embutidos: 'Embutidos',
 };
 
+// ─── HELPERS ────────────────────────────────────────────────────────────────
 function formatPrice(p) {
-  return '$ ' + p.toLocaleString('es-AR');
+  return '$ ' + p.toLocaleString('es-AR');
 }
+function safeId(name) {
+  return 'qty-' + name.replace(/[^a-zA-Z0-9]/g, '-');
+}
+
+// ─── CART STATE ─────────────────────────────────────────────────────────────
+const cart = {};
+
+function changeCartQty(name, price, cat, delta) {
+  if (!cart[name]) cart[name] = { qty: 0, price, cat };
+  cart[name].qty = Math.max(0, cart[name].qty + delta);
+  if (cart[name].qty === 0) delete cart[name];
+  const el = document.getElementById(safeId(name));
+  if (el) el.textContent = cart[name]?.qty || 0;
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const entries = Object.entries(cart);
+  const totalItems = entries.reduce((s, [, v]) => s + v.qty, 0);
+  const countEl = document.getElementById('cart-count');
+  countEl.textContent = totalItems;
+  countEl.style.display = totalItems > 0 ? 'flex' : 'none';
+
+  const cartItemsEl = document.getElementById('cart-items');
+  if (entries.length === 0) {
+    cartItemsEl.innerHTML = '<p class="cart-empty">Todavía no agregaste productos.</p>';
+  } else {
+    cartItemsEl.innerHTML = entries.map(([name, item]) => `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${name}</div>
+          <div class="cart-item-subprice">${formatPrice(item.price)} / kg</div>
+        </div>
+        <div class="cart-item-qty">
+          <button class="cart-qty-btn" data-action="dec" data-name="${name}">−</button>
+          <span>${item.qty} kg</span>
+          <button class="cart-qty-btn" data-action="inc" data-name="${name}">+</button>
+        </div>
+        <div class="cart-item-total">${formatPrice(item.price * item.qty)}</div>
+      </div>
+    `).join('');
+  }
+
+  const total = entries.reduce((s, [, v]) => s + v.price * v.qty, 0);
+  document.getElementById('cart-total-price').textContent = formatPrice(total);
+
+  const wspBtn = document.getElementById('cart-whatsapp');
+  wspBtn.style.opacity = entries.length === 0 ? '.4' : '1';
+  wspBtn.style.pointerEvents = entries.length === 0 ? 'none' : 'auto';
+}
+
+// Cart items — event delegation for +/- inside panel
+document.getElementById('cart-items').addEventListener('click', (e) => {
+  const btn = e.target.closest('.cart-qty-btn');
+  if (!btn) return;
+  const name = btn.dataset.name;
+  const item = cart[name];
+  if (!item) return;
+  changeCartQty(name, item.price, item.cat, btn.dataset.action === 'inc' ? 1 : -1);
+});
+
+// ─── CART OPEN / CLOSE ──────────────────────────────────────────────────────
+function openCart() {
+  document.getElementById('cart-panel').classList.add('open');
+  document.getElementById('cart-overlay').classList.add('open');
+}
+function closeCart() {
+  document.getElementById('cart-panel').classList.remove('open');
+  document.getElementById('cart-overlay').classList.remove('open');
+}
+document.getElementById('cart-fab').addEventListener('click', openCart);
+document.getElementById('cart-close').addEventListener('click', closeCart);
+document.getElementById('cart-overlay').addEventListener('click', closeCart);
+
+// Clear cart
+document.getElementById('cart-clear').addEventListener('click', () => {
+  Object.keys(cart).forEach(k => delete cart[k]);
+  document.querySelectorAll('.qty-display').forEach(el => el.textContent = '0');
+  updateCartUI();
+});
+
+// ─── WHATSAPP ORDER ─────────────────────────────────────────────────────────
+document.getElementById('cart-whatsapp').addEventListener('click', () => {
+  const entries = Object.entries(cart);
+  if (entries.length === 0) return;
+  const lines = entries.map(([name, item]) =>
+    `• ${name}: ${item.qty} kg — ${formatPrice(item.price * item.qty)}`
+  );
+  const total = entries.reduce((s, [, v]) => s + v.price * v.qty, 0);
+  const msg = `Hola! Quiero hacer el siguiente pedido:\n\n${lines.join('\n')}\n\nTotal estimado: ${formatPrice(total)}`;
+  window.open('https://wa.me/54911?text=' + encodeURIComponent(msg), '_blank');
+});
+
+// ─── CATALOG RENDER ─────────────────────────────────────────────────────────
+const imgPlaceholder = `
+  <div class="corte-img-placeholder">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" width="30" height="30">
+      <rect x="3" y="8" width="18" height="13" rx="2"/>
+      <circle cx="12" cy="14.5" r="3"/>
+      <path d="M8 8V6a2 2 0 012-2h4a2 2 0 012 2v2"/>
+    </svg>
+  </div>`;
 
 function renderCatalog(cat) {
   const grid = document.getElementById('catalog-grid');
   const items = cat === 'all' ? catalog : catalog.filter(p => p.cat === cat);
   grid.innerHTML = items.map(p => `
-    <div class="corte-card">
-      <div class="corte-name">${p.name}</div>
-      <div class="corte-price">${formatPrice(p.price)}<span class="corte-unit"> / kg</span></div>
-      <span class="corte-tag">${catLabels[p.cat]}</span>
+    <div class="corte-card" data-name="${p.name}" data-price="${p.price}" data-cat="${p.cat}">
+      ${imgPlaceholder}
+      <div class="corte-card-body">
+        <div class="corte-name">${p.name}</div>
+        <div class="corte-price">${formatPrice(p.price)}<span class="corte-unit"> / kg</span></div>
+        <span class="corte-tag">${catLabels[p.cat]}</span>
+        <div class="qty-controls">
+          <button class="qty-btn" data-delta="-1">−</button>
+          <span class="qty-display" id="${safeId(p.name)}">${cart[p.name]?.qty || 0}</span>
+          <button class="qty-btn" data-delta="1">+</button>
+        </div>
+      </div>
     </div>
   `).join('');
 }
 
+// Catalog grid — event delegation for +/- buttons
+document.getElementById('catalog-grid').addEventListener('click', (e) => {
+  const btn = e.target.closest('.qty-btn');
+  if (!btn) return;
+  const card = btn.closest('.corte-card');
+  const { name, price, cat } = card.dataset;
+  changeCartQty(name, parseInt(price), cat, parseInt(btn.dataset.delta));
+});
+
+// ─── CATEGORY TABS ──────────────────────────────────────────────────────────
 document.querySelectorAll('.cat-tab').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
@@ -126,8 +245,23 @@ document.querySelectorAll('.cat-tab').forEach(btn => {
   });
 });
 
-renderCatalog('all');
+// ─── MINIMIZE CATALOG ───────────────────────────────────────────────────────
+let catalogOpen = true;
+document.getElementById('catalog-toggle').addEventListener('click', () => {
+  catalogOpen = !catalogOpen;
+  const grid = document.getElementById('catalog-grid');
+  const tabs = document.querySelector('.cat-tabs');
+  grid.style.display = catalogOpen ? 'grid' : 'none';
+  tabs.style.display = catalogOpen ? 'flex' : 'none';
+  document.getElementById('catalog-toggle-text').textContent = catalogOpen ? 'Minimizar' : 'Ver catálogo';
+  document.getElementById('catalog-toggle-icon').style.transform = catalogOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+});
 
+// ─── INIT ────────────────────────────────────────────────────────────────────
+renderCatalog('all');
+updateCartUI();
+
+// ─── SCROLL REVEAL ──────────────────────────────────────────────────────────
 const reveals = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
