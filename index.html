@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ganadera Panamericana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="Ganadera_PNG.png" alt="Logo Ganadera Panamericana">
+    <span class="nav-logo-text">Ganadera <em>Panamericana</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#cortes">Cortes</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#pedidos">Pedidos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-cta">Hacer un pedido</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Carne Argentina de Primera</div>
+    <h1 class="hero-title">Del campo<br>a tu <em>mesa</em></h1>
+    <p class="hero-desc">Seleccionamos los mejores cortes de la Pampa húmeda. Calidad ganadera con más de 30 años de trayectoria en cada porción.</p>
+    <div class="hero-actions">
+      <a href="#pedidos" class="btn-primary">Hacer un pedido</a>
+      <a href="#cortes" class="btn-outline">Ver cortes →</a>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <img src="Ganadera_PNG.png" alt="">
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-ribbon">
+  <div class="stat-item"><div class="stat-num">+30</div><div class="stat-label">Años de trayectoria</div></div>
+  <div class="stat-item"><div class="stat-num">24</div><div class="stat-label">Cortes disponibles</div></div>
+  <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Res Hereford y Angus</div></div>
+  <div class="stat-item"><div class="stat-num">48h</div><div class="stat-label">Envío refrigerado</div></div>
+</div>
+
+<!-- CORTES -->
+<section class="cortes" id="cortes">
+  <div class="section-inner">
+    <div class="cortes-header reveal">
+      <div>
+        <div class="eyebrow">Nuestro catálogo</div>
+        <h2 class="section-title">Cortes de primera selección</h2>
+      </div>
+      <a href="#pedidos" class="btn-outline">Ver todos los cortes →</a>
+    </div>
+    <div class="cortes-grid">
+      <div class="corte-card reveal">
+        <svg class="corte-icon" viewBox="0 0 48 48" fill="none"><path d="M8 34 Q6 20 16 12 Q28 4 38 14 Q46 22 40 34 Q34 44 22 44 Q10 44 8 34Z" stroke="#e8392a" stroke-width="1.2" fill="rgba(232,57,42,.1)"/><path d="M14 30 Q18 22 28 24 Q34 26 32 34" stroke="#f0ede6" stroke-width=".8" opacity=".4"/></svg>
+        <div class="corte-name">Bife de Chorizo</div>
+        <p class="corte-desc">El corte rey de la parrilla argentina. Sabor intenso, marmoleo perfecto y corteza dorada.</p>
+        <span class="corte-tag">Parrilla · Premium</span>
+      </div>
+      <div class="corte-card reveal">
+        <svg class="corte-icon" viewBox="0 0 48 48" fill="none"><ellipse cx="24" cy="28" rx="18" ry="12" stroke="#e8392a" stroke-width="1.2" fill="rgba(232,57,42,.1)"/><ellipse cx="24" cy="22" rx="18" ry="12" stroke="#e8392a" stroke-width="1.2" fill="rgba(232,57,42,.07)"/><line x1="10" y1="22" x2="38" y2="22" stroke="#f0ede6" stroke-width=".6" opacity=".3"/></svg>
+        <div class="corte-name">Lomo</div>
+        <p class="corte-desc">Extremadamente tierno y magro. El preferido para sartén, horno o plancha a alta temperatura.</p>
+        <span class="corte-tag">Gourmet · Tierno</span>
+      </div>
+      <div class="corte-card reveal">
+        <svg class="corte-icon" viewBox="0 0 48 48" fill="none"><path d="M6 36 Q4 24 12 16 Q22 8 36 12 Q46 16 44 30 Q42 40 30 42 Q14 46 6 36Z" stroke="#e8392a" stroke-width="1.2" fill="rgba(232,57,42,.1)"/><path d="M12 32 Q22 20 38 26" stroke="#f0ede6" stroke-width=".8" stroke-dasharray="3 2" opacity=".35"/></svg>
+        <div class="corte-name">Vacío</div>
+        <p class="corte-desc">Corte largo con cuero, ideal para asado lento. Jugoso, fibroso y con carácter propio.</p>
+        <span class="corte-tag">Asado · Tradicional</span>
+      </div>
+      <div class="corte-card reveal">
+        <svg class="corte-icon" viewBox="0 0 48 48" fill="none"><path d="M8 24 Q8 14 18 10 Q30 6 38 14 Q46 22 40 32 Q34 40 24 40 Q12 40 8 30Z" stroke="#e8392a" stroke-width="1.2" fill="rgba(232,57,42,.1)"/><path d="M14 20 Q20 14 30 16 Q38 18 36 26" stroke="#f0ede6" stroke-width=".8" opacity=".4"/></svg>
+        <div class="corte-name">Entraña</div>
+        <p class="corte-desc">Sabor profundo e intenso. Rápida cocción, textura inigualable. El favorito de los asadores expertos.</p>
+        <span class="corte-tag">Rápida cocción · Intenso</span>
+      </div>
+      <div class="corte-card reveal">
+        <svg class="corte-icon" viewBox="0 0 48 48" fill="none"><rect x="6" y="16" width="36" height="16" rx="3" stroke="#e8392a" stroke-width="1.2" fill="rgba(232,57,42,.1)"/><line x1="16" y1="16" x2="16" y2="32" stroke="#e8392a" stroke-width=".8" opacity=".5"/><line x1="26" y1="16" x2="26" y2="32" stroke="#e8392a" stroke-width=".8" opacity=".5"/><line x1="36" y1="16" x2="36" y2="32" stroke="#e8392a" stroke-width=".8" opacity=".5"/></svg>
+        <div class="corte-name">Asado de Tira</div>
+        <p class="corte-desc">Las costillas al hueso que son alma de toda parrillada argentina. Presentación clásica, sabor sin igual.</p>
+        <span class="corte-tag">Clásico · Familiar</span>
+      </div>
+      <div class="corte-card reveal">
+        <svg class="corte-icon" viewBox="0 0 48 48" fill="none"><path d="M4 20 Q4 10 14 8 Q28 4 38 10 Q46 16 44 26 Q42 38 28 42 Q10 44 4 32Z" stroke="#e8392a" stroke-width="1.2" fill="rgba(232,57,42,.1)"/><path d="M10 18 Q20 12 34 16" stroke="#f0ede6" stroke-width=".8" opacity=".3"/><path d="M10 24 Q20 18 34 22" stroke="#f0ede6" stroke-width=".8" opacity=".3"/></svg>
+        <div class="corte-name">Matambre</div>
+        <p class="corte-desc">Versátil y sabroso. Ideal para arrollar, a la pizza o simplemente a la parrilla con chimichurri.</p>
+        <span class="corte-tag">Versátil · Popular</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPUESTA -->
+<section class="propuesta" id="nosotros">
+  <div class="section-inner">
+    <div class="propuesta-grid">
+      <div class="propuesta-visual reveal">
+        <img src="logo_catalogo.png" alt="Ganadera Panamericana">
+      </div>
+      <div>
+        <div class="eyebrow reveal">Por qué elegirnos</div>
+        <h2 class="section-title reveal">Tradición ganadera con criterio de hoy</h2>
+        <div class="prop-list" style="margin-top:2.8rem">
+          <div class="prop-item reveal">
+            <div class="prop-num">01</div>
+            <div class="prop-body"><h3>Selección de hacienda propia</h3><p>Trabajamos directamente con establecimientos de la Pampa húmeda, garantizando trazabilidad completa desde el campo hasta tu heladera.</p></div>
+          </div>
+          <div class="prop-item reveal">
+            <div class="prop-num">02</div>
+            <div class="prop-body"><h3>Maduración controlada</h3><p>Cada pieza pasa por un proceso de maduración en frío para potenciar su sabor y lograr la terneza justa que distingue nuestra carne.</p></div>
+          </div>
+          <div class="prop-item reveal">
+            <div class="prop-num">03</div>
+            <div class="prop-body"><h3>Corte y empaque artesanal</h3><p>Cada corte es realizado a mano por carniceros con décadas de oficio. Sin industrialización, sin compromiso en la calidad.</p></div>
+          </div>
+          <div class="prop-item reveal">
+            <div class="prop-num">04</div>
+            <div class="prop-body"><h3>Envío refrigerado en 48 h</h3><p>Cadena de frío garantizada desde nuestro local hasta tu puerta, en todo el área metropolitana y zonas del interior.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PEDIDOS -->
+<section class="pedidos" id="pedidos">
+  <div class="section-inner">
+    <div class="pedidos-center reveal">
+      <div class="eyebrow" style="justify-content:center">¿Cómo funciona?</div>
+      <h2 class="section-title">Tu pedido en 4 pasos simples</h2>
+      <p style="margin-top:1rem;opacity:.6;font-size:.95rem;line-height:1.7">Sin complicaciones. Elegís, pedís y recibís carne de primera en la comodidad de tu hogar o local.</p>
+    </div>
+    <div class="pedidos-steps">
+      <div class="step reveal"><div class="step-dot">01</div><h4>Elegí tus cortes</h4><p>Navegá nuestro catálogo y seleccioná los cortes y cantidades que necesitás.</p></div>
+      <div class="step reveal"><div class="step-dot">02</div><h4>Confirmá el pedido</h4><p>Completá tus datos de entrega y elegí la fecha que mejor te queda.</p></div>
+      <div class="step reveal"><div class="step-dot">03</div><h4>Preparamos todo</h4><p>Nuestros carniceros cortan y empaquetan tu pedido el mismo día del envío.</p></div>
+      <div class="step reveal"><div class="step-dot">04</div><h4>Recibís en casa</h4><p>Entrega refrigerada en 48 h. La mejor carne argentina en tu puerta.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band reveal" id="contacto">
+  <img src="Ganadera_PNG.png" class="cta-logo" alt="">
+  <div class="cta-text">
+    <h2>¿Querés armar un pedido mayorista<br>o para evento especial?</h2>
+    <p>Trabajamos con restaurantes, empresas y eventos. Consultanos por precios especiales y logística a medida.</p>
+  </div>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;flex-shrink:0;position:relative;z-index:1">
+    <a href="tel:+54911" class="btn-primary">Llamanos</a>
+    <a href="https://wa.me/54911" class="btn-primary" style="background:transparent;border:1px solid rgba(232,57,42,.5);color:var(--rojo)">WhatsApp</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <img src="Ganadera_PNG.png" alt="Logo">
+    <span class="footer-brand-text">Ganadera <em>Panamericana</em></span>
+  </div>
+  <div class="footer-links">
+    <a href="#">Cortes</a>
+    <a href="#">Nosotros</a>
+    <a href="#">Pedidos</a>
+    <a href="#">Contacto</a>
+  </div>
+  <div class="footer-copy">© 2025 Ganadera Panamericana. Todos los derechos reservados.</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
