@@ -246,16 +246,25 @@ document.querySelectorAll('.cat-tab').forEach(btn => {
 });
 
 // ─── MINIMIZE CATALOG ───────────────────────────────────────────────────────
-let catalogOpen = true;
-document.getElementById('catalog-toggle').addEventListener('click', () => {
-  catalogOpen = !catalogOpen;
+let catalogOpen = false; // Empezamos con el catálogo cerrado
+
+function updateCatalogVisibility() {
   const grid = document.getElementById('catalog-grid');
   const tabs = document.querySelector('.cat-tabs');
   grid.style.display = catalogOpen ? 'grid' : 'none';
   tabs.style.display = catalogOpen ? 'flex' : 'none';
   document.getElementById('catalog-toggle-text').textContent = catalogOpen ? 'Minimizar' : 'Ver catálogo';
   document.getElementById('catalog-toggle-icon').style.transform = catalogOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+// Evento para el botón
+document.getElementById('catalog-toggle').addEventListener('click', () => {
+  catalogOpen = !catalogOpen;
+  updateCatalogVisibility();
 });
+
+// Inicializamos la vista minimizada al cargar
+updateCatalogVisibility();
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
 renderCatalog('all');
@@ -272,3 +281,44 @@ const io = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 reveals.forEach(el => io.observe(el));
+
+// ─── FLECHA DE NAVEGACIÓN SECUENCIAL ────────────────────────────────────────
+const scrollBtn = document.getElementById('next-section-btn');
+
+// Este es el orden exacto de tus secciones
+const sectionsIds = ['cortes', 'nosotros', 'pedidos', 'contacto'];
+
+if (scrollBtn) {
+  scrollBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // Evita que la página salte brusco al hacer clic
+    
+    // Buscamos cuál es la próxima sección que está más abajo en la pantalla
+    for (let i = 0; i < sectionsIds.length; i++) {
+      const section = document.getElementById(sectionsIds[i]);
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        
+        // Si el borde superior de la sección está por debajo del rango visible (más de 50px)
+        // Significa que es nuestra próxima parada
+        if (rect.top > 50) { 
+          section.scrollIntoView({ behavior: 'smooth' });
+          return; // Detenemos la función para que solo baje a UNA sección por clic
+        }
+      }
+    }
+  });
+
+  // Opcional: Ocultar la flecha cuando ya estemos en "contacto" (el final de la página)
+  window.addEventListener('scroll', () => {
+    const contactoSection = document.getElementById('contacto');
+    if (contactoSection) {
+      const rect = contactoSection.getBoundingClientRect();
+      // Si la sección de contacto ya está casi en el centro de la pantalla, ocultamos la flecha
+      if (rect.top < window.innerHeight / 2) {
+        scrollBtn.classList.add('hidden');
+      } else {
+        scrollBtn.classList.remove('hidden');
+      }
+    }
+  });
+}
