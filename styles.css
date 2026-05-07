@@ -181,7 +181,7 @@
     /* CTA */
     .cta-band { margin:0 4rem 7rem; background:var(--marino); padding:5rem 4rem; display:flex; align-items:center; justify-content:space-between; gap:3rem; position:relative; overflow:hidden; }
     .cta-band::after  { content:''; position:absolute; bottom:-70px; left:28%; width:200px; height:200px; border-radius:50%; border:40px solid rgba(240,237,230,.05); }
-    .cta-logo { position:absolute; top:-50px; right:-50px; width:260px; height:260px; object-fit:contain; opacity:.08; mix-blend-mode:screen; }
+    .cta-logo { position:absolute; top:50%; right:2rem; transform:translateY(-50%); width:220px; height:220px; object-fit:contain; opacity:.12; filter:brightness(0) invert(1); }
     .cta-text h2 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3vw,2.8rem); color:var(--blanco); line-height:1.15; }
     .cta-text p { margin-top:.8rem; opacity:.65; font-size:.95rem; line-height:1.65; }
 
